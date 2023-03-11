@@ -1,6 +1,7 @@
 import { PhotoIcon } from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
 import HomeSurvey from '../components/HomeSurvey'
+import ReusableButton from '../components/ReusableButton'
 
 export default function SurveyView() {
     const [survey, setSurvey] = useState({
@@ -13,11 +14,12 @@ export default function SurveyView() {
         expire_date: "",
         questions: [],
     })
-    const onSubmit = () => {
-
+    const onSubmit = (ev) => {
+        ev.preventDefault();
+        console.log(ev)
     }
     const onImageChoose = () => {
-
+        console.log("image")
     }
     return (
         <HomeSurvey title="New survey ...">
@@ -47,7 +49,7 @@ export default function SurveyView() {
                         {/* image */}
                         {/* title */}
                         <div class="mb-6 col-span-6 sm:col-span-3">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                            <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
                             <input
                                 type="text"
                                 id="title"
@@ -64,10 +66,71 @@ export default function SurveyView() {
                         {/* title */}
                         {/* desc */}
                         <div class="mb-6 col-span-6 sm:col-span-3">
-                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
-                            <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your description</label>
+                            <textarea
+                                id="description"
+                                rows="4"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."
+                                required
+                                value={survey.description}
+                                onChange={
+                                    (ev) => setSurvey({
+                                        ...survey, description: ev.target.value
+                                    })
+                                }
+                            >
+                            </textarea>
                             <div />
                             {/* desc */}
+                            {/* date */}
+                            <div class="mb-6 col-span-6 sm:col-span-3">
+                                <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">date</label>
+                                <input
+                                    type="date"
+                                    id="date"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="date"
+                                    required
+                                    value={survey.expire_date}
+                                    onChange={
+                                        (ev) => setSurvey({
+                                            ...survey, expire_date: ev.target.value
+                                        })
+                                    }
+                                />
+                            </div>
+                            {/* date */}
+
+                             {/* status */}
+                             <div class="mb-6 col-span-6 sm:col-span-3">
+                                <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">status</label>
+                                <input
+                                    type="checkbox"
+                                    id="status"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="status"
+                                   
+                                    value={survey.status}
+                                    onChange={
+                                        (ev) => setSurvey({
+                                            ...survey, status: ev.target.value
+                                        })
+                                    }
+                                />
+                            </div>
+                            {/* status */}
+                            {/* active */}
+                            <div className="ml-3 text-sm">
+                                <label htmlFor="comments" className="font-medium text-gray-700">active</label>
+                                <p className="text-gray-500">
+                                    Make public?
+                                </p>
+                            </div>
+                            {/* active */}
+                            <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                                <ReusableButton>
+                                    Save
+                                </ReusableButton>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
